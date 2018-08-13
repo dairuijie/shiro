@@ -79,7 +79,8 @@
    </value>
   </property>
  </bean>
- <bean id="lifecycleBeanPostProcessor"
-  class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-  <bean id = "shiroCustomFilter" class="com.dai.ruijie.filter.ShiroCustomFilter"></bean>
+ <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+ <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+    <!-- shiro 自定义过滤器 添加验证码参数 -->
+ <bean id = "shiroCustomFilter" class="com.dai.ruijie.filter.ShiroCustomFilter"></bean>
 </beans>

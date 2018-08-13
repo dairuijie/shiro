@@ -21,24 +21,54 @@ import com.dai.ruijie.pojo.Users;
 import com.dai.ruijie.util.SessionUtil;
 import com.google.code.kaptcha.Producer;
 
+/**
+ * 
+ * @ClassName: IndexController
+ * @Description:TODO(测试使用的类)
+ * @author: drj
+ * @date: 2018年8月13日 下午9:56:51
+ * 
+ * @Copyright: 2018
+ *
+ */
 @Controller
 @RequestMapping("/")
 public class IndexController {
     private final static Logger log = Logger.getLogger(IndexController.class);
     @Autowired
     private Producer captchaProducer;
+
+    /**
+     * 去往登录的页面
+     * 
+     * @param mv
+     * @return
+     */
     @RequestMapping("/toLogin")
     public ModelAndView toLogin(ModelAndView mv) {
         mv.setViewName("login");
         return mv;
     }
 
+    /**
+     * 没有权限跳转页面
+     * 
+     * @param mv
+     * @return
+     */
     @RequestMapping("/unauthorized")
     public ModelAndView unauthorized(ModelAndView mv) {
         mv.setViewName("unauthorized");
         return mv;
     }
 
+    /**
+     * 登录方法
+     * 
+     * @param request
+     * @param mv
+     * @return
+     */
     @RequestMapping("/login")
     public ModelAndView login(HttpServletRequest request, ModelAndView mv) {
         String className = (String) request.getAttribute("shiroLoginFailure");
@@ -52,6 +82,12 @@ public class IndexController {
         return mv;
     }
 
+    /**
+     * 登录成功后跳转的页面
+     * 
+     * @param mv
+     * @return
+     */
     @RequestMapping("/index")
     public ModelAndView index(ModelAndView mv) {
         Users user = SessionUtil.getUser();
@@ -60,6 +96,12 @@ public class IndexController {
         return mv;
     }
 
+    /**
+     * 模拟没有该权限的一个方法
+     * 
+     * @param mv
+     * @return
+     */
     @RequestMapping("/list")
     @RequiresPermissions("user:list")
     public ModelAndView getList(ModelAndView mv) {
@@ -68,6 +110,11 @@ public class IndexController {
         return mv;
     }
 
+    /**
+     * 针对报错的跳转
+     * 
+     * @return
+     */
     @RequestMapping("/error")
     public String getError() {
         return "common/500";
